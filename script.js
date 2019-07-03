@@ -37,62 +37,52 @@ const inputHappened = function(currentInput) {
 
     let totalTax = 0;
 
-    // first check
-    const first = taxableIncome[0].max - taxableIncome[0].min;
+    let calculation = taxableIncome.map((obj, index) => {
+        console.log("New figure before deducting: ", newFigure)
+        let range = obj.max - obj.min;
 
-    // if income is more than 50m, then 50m * rate
-    if (newFigure > first) {
-        // first amount is first tax amount
-        let firstAmount = first * taxableIncome[0].rate;
-        totalTax = firstAmount + totalTax;  // add to total tax
-        newFigure = newFigure - first;
-        console.log("total tax for first: ", totalTax)
+        if (newFigure > range) {
+            let amount = range * obj.rate;
+            totalTax = amount + totalTax;
+            newFigure = newFigure - range;
+            console.log("Range: ", range);
+            console.log("Amount of tax for the bracket: ", amount);
+            console.log("Current total tax: ", totalTax)
+            console.log("New figure: ", newFigure)
 
-        const second = taxableIncome[1].max - taxableIncome[1].min;
-        // if the second cap is bigger than the range, just take the range amount * rate
-        if (newFigure > second ) {
-            let secondAmount = second * taxableIncome[1].rate;
-            totalTax = secondAmount + totalTax;
-            newFigure = newFigure - second;
+            console.log(`${obj.type}: ${totalTax}`)
+            console.log("/////////////////////////////////")
 
-            console.log("second: ", secondAmount)
+        // if the left over figure is lesser than the range
+        } else {
+            // check if figure is more than 0, make sure its not negative
+            if (newFigure > 0) {
+                console.log(obj.rate);
+                // amount of tax for the bracket
+                let amount = newFigure * obj.rate;
+                totalTax = amount + totalTax;
+                // still need to update new figure
+                newFigure = newFigure - newFigure;
 
-            const third = taxableIncome[2].max - taxableIncome[2].min;
-            if (newFigure > third ) {
-                const thirdAmount = third * rate;
-                totalTax = thirdAmount + totalTax;
-                newFigure = newFigure - third;
-                console.log("third: ", thirdAmount)
 
-                // as long as there is balance, then times the final rate
-                if (newFigure > 0) {
-                    const finalAmount = (newFigure * taxableIncome[3].rate)
-                    totalTax = finalAmount + totalTax;
-                    console.log("Final Amount: ", totalTax)
-                }
-
-            // end of checking third amount
             } else {
-                console.log("New: ", newFigure)
-                console.log(taxableIncome[2].rate)
-                let thirdAmount = newFigure * taxableIncome[2].rate;
-                totalTax = thirdAmount + totalTax;
-                console.log("thirddddd: ", thirdAmount)
+                console.log("end")
             }
 
-        // end of checking for second amount
-        // else - if figure is lesser than the range, then figure * rate
-        }  else {
-            let secondAmount = newFigure * taxableIncome[1].rate;
-            totalTax = secondAmount + totalTax;
-            console.log("second: ", secondAmount)
+            console.log("/////////////////////////////////")
+            // let amount = newFigure * obj.rate;
+            // totalTax = amount + totalTax;
+
+            // console.log("Range: ", range);
+            // console.log("Amount: ", amount);
+            // console.log("Total tax: ", totalTax)
+            // console.log("New figure: ", newFigure)
+
+            // console.log(`${obj.type}: ${totalTax}`)
+            // console.log("/////////////////////////////////")
         }
 
-    // end of checking for first amount
-    } else {
-        totalTax = (newFigure * taxableIncome[0].rate) + totalTax;
-    }
-
+    })
 
     console.log("Total tax: ", totalTax);
     console.log("Yearly income: ", yearlyIncome)
