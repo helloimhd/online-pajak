@@ -39,9 +39,13 @@ const inputHappened = function(currentInput) {
 
     // first check
     const first = taxableIncome[0].max - taxableIncome[0].min;
+
+    // if income is more than 50m, then 50m * rate
     if (newFigure > first) {
-        let firstAmount = first * taxableIncome[0].rate
-        totalTax = first + totalTax;  // add to total tax
+        // first amount is first tax amount
+        let firstAmount = first * taxableIncome[0].rate;
+        totalTax = firstAmount + totalTax;  // add to total tax
+        newFigure = newFigure - first;
         console.log("total tax for first: ", totalTax)
 
         const second = taxableIncome[1].max - taxableIncome[1].min;
@@ -57,7 +61,7 @@ const inputHappened = function(currentInput) {
             if (newFigure > third ) {
                 const thirdAmount = third * rate;
                 totalTax = thirdAmount + totalTax;
-                newFigure = newFigure - thirdAmount;
+                newFigure = newFigure - third;
                 console.log("third: ", thirdAmount)
 
                 // as long as there is balance, then times the final rate
@@ -69,9 +73,11 @@ const inputHappened = function(currentInput) {
 
             // end of checking third amount
             } else {
+                console.log("New: ", newFigure)
+                console.log(taxableIncome[2].rate)
                 let thirdAmount = newFigure * taxableIncome[2].rate;
                 totalTax = thirdAmount + totalTax;
-                console.log("third: ", thirdAmount)
+                console.log("thirddddd: ", thirdAmount)
             }
 
         // end of checking for second amount
