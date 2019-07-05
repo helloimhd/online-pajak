@@ -37,6 +37,7 @@ const calculation = function(taxableIncomeObj, currentAnnualIncome, totalTax) {
         console.log("New figure before deducting: ", currentAnnualIncome)
         let range = obj.max - obj.min;
 
+        // if the current amount is bigger than max-min then use the range to calculate
         if (currentAnnualIncome > range) {
             let amount = range * obj.rate;
             totalTax = amount + totalTax;
@@ -95,7 +96,6 @@ const inputHappened = function(currentInput) {
         // cannot change
         const yearlyIncome = annualIncome(Number(currentInput))
 
-        console.log(Number(currentInput))
         let newFigure = yearlyIncome;  // can change and play around with it
         let totalTax = 0;
         let newTotalTax = calculation(taxableIncome, newFigure, totalTax)
@@ -104,7 +104,6 @@ const inputHappened = function(currentInput) {
        // viewTax.textContent = `Total Tax: ${formatTotalTax}`;
         viewTax.textContent = formatTotalTax;
         input.value = "";
-
 
         console.log("Total tax: ", newTotalTax);
         console.log("Yearly income: ", yearlyIncome);
@@ -115,11 +114,3 @@ const inputHappened = function(currentInput) {
     }
 
 }
-
-
-
-// cannot use this cause it has to be a number
-// currentUserInput = parseInt(event.target.value);
-// currentUserInput = currentUserInput.toLocaleString("en-ID")
-// // console.log(currentUserInput.toLocaleString("en-ID", { style: 'currency', currency: 'IDR' }));
-//console.log(currentUserInput)
