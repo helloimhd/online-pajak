@@ -4,24 +4,21 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <input type="number" class="starter" id="input" placeholder="Enter income"/>
-    <p id="viewAmount"></p>
-    <h2>output:</h2>
-    <div class="starter" id="output"></div>
-<!--     <div class="starter" id="currentSeats"></div>
-    <div class="starter" id="price"></div> -->
+    <div class="items-container">
+        <h1>Personal Tax Income<br />Calculator</h1>
+        <div class="input-container">
+            <p id="viewAmount"></p>
+            <input type="number" class="starter" id="input" placeholder="Enter income"/>
+            <p id="viewTax"></p>
+        </div>
+    </div>
 
-    <div class="blue"></div>
+
     <script>
       document.querySelector('#input').addEventListener('change', function(event){
         var currentInput = event.target.value;
         inputHappened(currentInput)
       });
-
-      var display = function( data ){
-        var output = document.querySelector('#output');
-        output.innerText = data;
-      }
     </script>
     <script src="script.js"></script>
   </body>

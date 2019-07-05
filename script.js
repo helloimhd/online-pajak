@@ -76,6 +76,7 @@ const calculation = function(taxableIncomeObj, currentAnnualIncome, totalTax) {
 
 const input = document.getElementById("input");
 const viewAmount = document.getElementById("viewAmount");
+const taxView = document.getElementById("viewTax");
 
 // change input as user type, with commas
 const changeInput = function(event) {
@@ -100,8 +101,9 @@ const inputHappened = function(currentInput) {
         let newTotalTax = calculation(taxableIncome, newFigure, totalTax)
         let formatTotalTax = newTotalTax.toLocaleString('en-ID', { style: 'currency', currency: 'IDR' });
 
-        display(`Total Tax: ${formatTotalTax}`);
-
+       // viewTax.textContent = `Total Tax: ${formatTotalTax}`;
+        viewTax.textContent = formatTotalTax;
+        input.value = "";
 
 
         console.log("Total tax: ", newTotalTax);
