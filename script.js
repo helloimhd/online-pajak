@@ -31,6 +31,7 @@ const annualIncome = function(income) {
     return income * 12;
 };
 
+// calculation for each bracket according to income input
 const calculation = function(taxableIncomeObj, currentAnnualIncome, totalTax) {
     taxableIncome.map(obj => {
         console.log("New figure before deducting: ", currentAnnualIncome)
@@ -73,17 +74,50 @@ const calculation = function(taxableIncomeObj, currentAnnualIncome, totalTax) {
 }  // end of function
 
 
+const input = document.getElementById("input");
+const viewAmount = document.getElementById("viewAmount");
 
+// change input as user type, with commas
+const changeInput = function(event) {
+    let currentUserInput = Number(event.target.value);
+    let updatedInput = currentUserInput.toLocaleString('en-ID', { style: 'currency', currency: 'IDR' });
+
+    viewAmount.textContent = updatedInput;
+}
+
+// on key down, check the input value and convert
+input.addEventListener("input", changeInput)
 
 
 const inputHappened = function(currentInput) {
-    // cannot change
-    const yearlyIncome = annualIncome(parseInt(currentInput));
-    let newFigure = yearlyIncome;  // can change and play around with it
+    if (!isNaN(Number(currentInput))) {
+        // cannot change
+        const yearlyIncome = annualIncome(Number(currentInput))
 
-    let totalTax = 0;
+        console.log(Number(currentInput))
+        let newFigure = yearlyIncome;  // can change and play around with it
+        let totalTax = 0;
+        let newTotalTax = calculation(taxableIncome, newFigure, totalTax)
+        let formatTotalTax = newTotalTax.toLocaleString('en-ID', { style: 'currency', currency: 'IDR' });
 
-    let newTotalTax = calculation(taxableIncome, newFigure, totalTax)
-    console.log("Total tax: ", newTotalTax);
-    console.log("Yearly income: ", yearlyIncome)
+        display(`Total Tax: ${formatTotalTax}`);
+
+
+
+        console.log("Total tax: ", newTotalTax);
+        console.log("Yearly income: ", yearlyIncome);
+
+
+    } else {
+        viewAmount.textContent = "Please submit a valid amount!"
+    }
+
 }
+
+
+
+// cannot use this cause it has to be a number
+// currentUserInput = parseInt(event.target.value);
+// currentUserInput = currentUserInput.toLocaleString("en-ID")
+// // console.log(currentUserInput.toLocaleString("en-ID", { style: 'currency', currency: 'IDR' }));
+//console.log(currentUserInput)
